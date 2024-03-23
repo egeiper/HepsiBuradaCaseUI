@@ -8,6 +8,9 @@ jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - uses: actions/checkout@v4
@@ -21,8 +24,9 @@ jobs:
       - run: chrome --version
 
       - name: Build with Gradle
-        run: ./gradlew clean test -Pserver=local
-        continue-on-error: true
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        with:
+          arguments: clean test -Pserver=local
 
       - uses: actions/upload-artifact@v4
         name: Upload Report Artifacts
