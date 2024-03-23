@@ -15,6 +15,10 @@ public class CookieFooter extends BasePage {
         super(driver);
     }
 
+    public boolean isCookieFooterVisible() {
+        return isElementPresent(acceptCookiesButton, 1);
+    }
+
     public void acceptCookies() {
         waitUntil(ExpectedConditions.visibilityOf(acceptCookiesButton));
         acceptCookiesButton.click();

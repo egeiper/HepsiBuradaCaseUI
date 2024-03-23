@@ -33,8 +33,11 @@ public class ProductDetailsPageTest extends DriverHelper {
         productDetailsPage = new ProductDetailsPage(driver);
         searchResultsPage = new SearchResultsPage(driver);
         siteNavigatorUtil = new SiteNavigator(driver);
+        CookieFooter cookieFooter = new CookieFooter(driver);
         siteNavigatorUtil.goToMainPage();
-        new CookieFooter(driver).acceptCookies();
+        if(cookieFooter.isCookieFooterVisible()) {
+            cookieFooter.acceptCookies();
+        }
         /*
         if(!mainPage.isUserLoggedIn()) {
             SiteNavigatorUtil.goToLoginPage();

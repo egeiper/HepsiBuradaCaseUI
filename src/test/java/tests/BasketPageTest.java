@@ -34,8 +34,11 @@ public class BasketPageTest {
         searchResultsPage = new SearchResultsPage(driver);
         siteHeader = new SiteHeader(driver);
         basketPage = new BasketPage(driver);
+        CookieFooter cookieFooter = new CookieFooter(driver);
         new SiteNavigator(driver).goToMainPage();
-        new CookieFooter(driver).acceptCookies();
+        if(cookieFooter.isCookieFooterVisible()) {
+            cookieFooter.acceptCookies();
+        }
     }
 
     @Test
