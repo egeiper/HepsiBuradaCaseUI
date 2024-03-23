@@ -18,9 +18,12 @@ jobs:
             java-version: 11
 
 
-      - uses: browser-actions/setup-chrome@latest
-        name: Setup Chrome
-      - run: chrome --version
+      - name: Install Google Chrome # Using shell script to install Google Chrome
+        run: |
+          chmod +x ./scripts/InstallChrome.sh
+           ./scripts/InstallChrome.sh
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew # give permission to Gradle to run the
 
       - name: Build with Gradle
         run: gradle clean test -Pserver=local
