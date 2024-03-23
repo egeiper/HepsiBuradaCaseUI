@@ -1,0 +1,63 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.ksoichiro:gradle-console-reporter:0.6.3'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+version = '1.0.0'
+repositories {
+    mavenCentral()
+}
+java {
+    sourceCompatibility JavaVersion.VERSION_11
+    targetCompatibility JavaVersion.VERSION_11
+}
+
+dependencies {
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.18.1'
+    implementation 'com.amazonaws:aws-java-sdk-ssm:1.12.385'
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: '5.4.0'
+    implementation 'org.testng:testng:7.9.0'
+    implementation group: 'io.qameta.allure', name: 'allure-testng', version: '2.25.0'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
+    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
+}
+
+publishing {
+        repositories {
+            maven {
+                url = project.property("AWS_S3_URL") ?: findProperty('aws_s3_url')
+                credentials(AwsCredentials) {
+                    accessKey = project.property("AWS_ACCESS_KEY_ID") ?: findProperty('aws_access_key_id')
+                    secretKey = project.property("AWS_SECRET_ACCESS_KEY") ?: findProperty('aws_secret_access_key')
+                }
+                publications {
+                    mavenJava(MavenPublication) {
+                        artifact file("$projectDir/target/HepsiBuradaCase-${version}-jar-with-dependencies.jar")
+                    }
+                }
+            }
+        }
+}
+
+test {
+    def SERVER = project.hasProperty("server") ? get_server() : 'grid'
+    systemProperty("SERVER", SERVER)
+    useTestNG()
+    maxParallelForks = 10
+}
+
+private String get_server() {
+    def supported_servers = ["grid", "local"]
+    def server = getProperty("server")
+    if (supported_servers.contains(server)) return server
+    else  throw new Exception("WRONG defined SERVER: " + server + " " + supported_servers)
+}
