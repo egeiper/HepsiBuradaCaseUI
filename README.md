@@ -18,6 +18,8 @@ This is a demo project for case given by HepsiBurada.
 
 - To run project in local: `./gradlew clean test -Pserver=local`
 
+
+
 ### How to publish project into your S3 bucket ?
 
 1. Create a S3 bucket in AWS and put its URL into gradle.properties file as `AWS_S3_URL`.
