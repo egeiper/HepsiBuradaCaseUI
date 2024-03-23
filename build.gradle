@@ -56,7 +56,7 @@ test {
 }
 
 private String get_server() {
-    def supported_servers = ["grid", "local"]
+    def supported_servers = ["grid", "local", "actions"]
     def server = getProperty("server")
     if (supported_servers.contains(server)) return server
     else  throw new Exception("WRONG defined SERVER: " + server + " " + supported_servers)
