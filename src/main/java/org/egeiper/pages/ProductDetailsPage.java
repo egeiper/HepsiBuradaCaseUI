@@ -41,6 +41,9 @@ public class ProductDetailsPage extends BasePage {
     @FindBy(id = "product-name")
     protected WebElement productName;
 
+    @FindBy(css = "div[id*='AddToCart'] a[class*='checkoutui']")
+    protected WebElement closeProductAddedOverlayButton;
+
 
     public ProductDetailsPage(final WebDriver driver) {
         super(driver);
@@ -91,6 +94,11 @@ public class ProductDetailsPage extends BasePage {
     public void clickAddToCart() {
         waitUntil(ExpectedConditions.elementToBeClickable(addToCartButton));
         addToCartButton.click();
+    }
+
+    public void closeProductAddedOverlay() {
+        waitUntil(ExpectedConditions.elementToBeClickable(closeProductAddedOverlayButton));
+        closeProductAddedOverlayButton.click();
     }
 
     public double getPriceOfProduct() {

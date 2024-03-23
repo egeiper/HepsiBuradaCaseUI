@@ -50,6 +50,7 @@ public class BasketPageTest {
         final String productName = productDetailsPage.getProductName();
         final double productDetailsPrice = productDetailsPage.getPriceOfProduct();
         productDetailsPage.clickAddToCart();
+        productDetailsPage.closeProductAddedOverlay();
         siteHeader.goToShoppingCart();
         final double basketPrice = basketPage.getPriceOfProductOnBasket(productName);
         assertEquals(productDetailsPrice, basketPrice);
