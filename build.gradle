@@ -12,6 +12,7 @@ plugins {
     id 'maven-publish'
 }
 
+group = "org.egeiper"
 version = '1.0.0'
 repositories {
     mavenCentral()
