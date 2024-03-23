@@ -1,4 +1,4 @@
-# HepsiBuradaCase
+# HepsiBuradaCaseUI
 
 This is a demo project for case given by HepsiBurada.
 
