@@ -18,7 +18,13 @@ This is a demo project for case given by HepsiBurada.
 
 - To run project in local: `./gradlew clean test -Pserver=local`
 
+### How to run project on GitHub Actions ?
+- Go to Actions tab and run the "Run with Gradle" workflow. Workflow will setup java and latest version of chrome in ubuntu machine. Then it will build project with Gradle. At the end it will create report artifact in execution.
 
+
+- <b>Info</b>: Because HepsiBurada doesn't allow to run browsers on headless mode, this implementation is built just for demonstration.
+
+![readme_img_2.png](images%2Freadme_img_2.png)
 
 ### How to publish project into your S3 bucket ?
 

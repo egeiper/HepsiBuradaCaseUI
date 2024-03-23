@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 public class SiteNavigator {
 
-    private WebDriver driver;
+    private final WebDriver driver;
 
     public SiteNavigator(final WebDriver driver) {
         this.driver = driver;
