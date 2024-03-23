@@ -21,7 +21,7 @@ public class DriverHelper {
         } else {
             setDriver(createRemoteDriver());
         }
-        //getDriver().manage().window().maximize();
+        getDriver().manage().window().maximize();
         return getDriver();
     }
 
