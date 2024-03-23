@@ -26,7 +26,7 @@ jobs:
         run: chmod +x gradlew # give permission to Gradle to run the
 
       - name: Build with Gradle
-        run: gradle clean test -Pserver=local
+        run: ./gradlew clean test -Pserver=local
         continue-on-error: true
 
       - uses: actions/upload-artifact@v4
