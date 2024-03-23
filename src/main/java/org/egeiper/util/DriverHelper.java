@@ -32,17 +32,11 @@ public class DriverHelper {
     public ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
         final String serverProperty = System.getProperty("SERVER");
-        if ("actions".equals(serverProperty)) {
-            options.addArguments("--window-size=1920,1080");
-            options.addArguments("--disable-extensions");
-            options.addArguments("--proxy-server='direct://'");
-            options.addArguments("--proxy-bypass-list=*");
-            options.addArguments("--start-maximized");
-            //options.addArguments("--headless");
-            options.addArguments("--disable-gpu");
+        if ("actions".equals(serverProperty)) { // because hepsiburada doesnt allow headless mode it wont work for the case
+            // but i'm putting it just for idea.
+            options.addArguments("--headless");
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--no-sandbox");
-            options.addArguments("--ignore-certificate-errors");
         }
         return options;
     }
