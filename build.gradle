@@ -29,6 +29,8 @@ dependencies {
     implementation group: 'io.qameta.allure', name: 'allure-testng', version: '2.25.0'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
     implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+
 }
 
 publishing {
