@@ -18,12 +18,12 @@ jobs:
             java-version: 11
 
 
-      - uses: browser-actions/setup-chrome@v1
+      - uses: browser-actions/setup-chrome@latest
         name: Setup Chrome
       - run: chrome --version
 
       - name: Build with Gradle
-        run: ./gradlew clean test -Pserver=local
+        run: gradle clean test -Pserver=local
         continue-on-error: true
 
       - uses: actions/upload-artifact@v4

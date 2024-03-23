@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 import java.net.MalformedURLException;
 
 import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertTrue;
 
 public class ProductDetailsPageTest extends DriverHelper {
 
@@ -46,14 +47,14 @@ public class ProductDetailsPageTest extends DriverHelper {
 
     @Test
     public void giveFeedbackOnReviewTest() {
+        final int index = 0;
         mainPage.searchProduct("iphone");
         searchResultsPage.clickOnRandomProduct();
         productDetailsPage.switchToTab("Değerlendirmeler");
         if(productDetailsPage.isThereAnyReview()) {
             productDetailsPage.sortReviewsBy("En yeni değerlendirme");
-            productDetailsPage.isReviewNthHelpful(0, Review.HELPFUL);
-            assertEquals("Teşekkür Ederiz.", productDetailsPage.getTextOfReviewNth(0),
-                    "Review text is not as expected");
+            productDetailsPage.isReviewNthHelpful(index, Review.HELPFUL);
+            assertTrue(productDetailsPage.isThanksForReviewTextVisible(index));
         }
     }
 /*

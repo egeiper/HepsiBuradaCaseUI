@@ -70,8 +70,8 @@ public class ProductDetailsPage extends BasePage {
         centerElement(thanksMessages.get(index));
     }
 
-    public String getTextOfReviewNth(final int index) {
-        return thanksMessages.get(index).getText();
+    public boolean isThanksForReviewTextVisible(final int index) {
+         return isElementPresent(thanksMessages.get(index), 1);
     }
 
     public boolean isThereAnyReview() {
