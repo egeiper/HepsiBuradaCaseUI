@@ -16,7 +16,8 @@ This is a demo project for case given by HepsiBurada.
   - Execute command `./gradlew clean test -Pserver=grid`
 
 
-- To run project in local: `./gradlew clean test -Pserver=local`
+- To run project in local with Gradle: `./gradlew clean test -Pserver=local`
+- To run project in local with TestNG: `mvn clean test -Dsurefire.suiteXmlFiles=tests.xml`
 
 ### How to run project on GitHub Actions ?
 - Go to Actions tab and run the "Run with Gradle" workflow. Workflow will setup java and latest version of chrome in ubuntu machine. Then it will build project with Gradle. At the end it will create report artifact in execution.
