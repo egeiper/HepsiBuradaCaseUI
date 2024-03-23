@@ -37,6 +37,11 @@ public class DriverHelper {
         final ChromeOptions chromeOpts = new ChromeOptions();
         chromeOpts.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
         chromeOpts.setExperimentalOption("prefs", prefs);
+        if(System.getProperty("SERVER").equals("grid")) {
+            chromeOpts.addArguments("--no-sandbox");
+            chromeOpts.addArguments("--disable-dev-shm-usage");
+            chromeOpts.addArguments("--headless");
+        }
         return chromeOpts;
     }
 

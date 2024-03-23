@@ -17,13 +17,9 @@ jobs:
             distribution: "zulu"
             java-version: 11
 
-
-      - name: Install Google Chrome # Using shell script to install Google Chrome
-        run: |
-          chmod +x ./scripts/InstallChrome.sh
-           ./scripts/InstallChrome.sh
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew # give permission to Gradle to run the
+      - uses: browser-actions/setup-chrome@latest
+      - name: Set up Chrome
+      - run: chrome --version
 
       - name: Build with Gradle
         run: ./gradlew clean test -Pserver=local
