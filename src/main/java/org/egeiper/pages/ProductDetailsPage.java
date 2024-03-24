@@ -63,7 +63,7 @@ public class ProductDetailsPage extends BasePage {
         waitAjaxRequestToBeFinished();
     }
 
-    public void isReviewNthHelpful(final int index, final Review review) {
+    public void voteReview(final int index, final Review review) {
         if (review.equals(Review.HELPFUL)) {
             getDriver().findElements(By.cssSelector("div[class*=thumbsUp]")).get(index).click();
         } else {
@@ -73,7 +73,7 @@ public class ProductDetailsPage extends BasePage {
         centerElement(thanksMessages.get(index));
     }
 
-    public boolean isThanksForReviewTextVisible(final int index) {
+    public boolean isThanksForReviewTextVisibleOnNthReview(final int index) {
          return isElementPresent(thanksMessages.get(index), 1);
     }
 

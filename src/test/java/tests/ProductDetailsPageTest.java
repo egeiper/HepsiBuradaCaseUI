@@ -61,8 +61,8 @@ public class ProductDetailsPageTest extends DriverHelper {
         productDetailsPage.switchToTab("Değerlendirmeler");
         if(productDetailsPage.isThereAnyReview()) {
             productDetailsPage.sortReviewsBy("En yeni değerlendirme");
-            productDetailsPage.isReviewNthHelpful(index, Review.HELPFUL);
-            assertTrue(productDetailsPage.isThanksForReviewTextVisible(index));
+            productDetailsPage.voteReview(index, Review.HELPFUL);
+            assertTrue(productDetailsPage.isThanksForReviewTextVisibleOnNthReview(index + 1));
         }
     }
 
