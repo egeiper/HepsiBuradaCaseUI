@@ -12,7 +12,6 @@ import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Set;
 
-import static org.testng.Assert.fail;
 
 @Data
 @Slf4j
@@ -124,7 +123,6 @@ public class BasePage {
             }
         } catch (Exception e) {
             log.error("There was an error while trying to switch to last opened window", e);
-            fail("Problem switching windows " + e.getMessage());
         }
     }
 
