@@ -1,11 +1,14 @@
 package tests;
 
 import org.egeiper.components.CookieFooter;
-import org.egeiper.pages.MainPage;
+import org.egeiper.components.FacebookLoginOverlay;
+import org.egeiper.pages.LoginPage;
+import org.egeiper.components.NavigationBar;
 import org.egeiper.pages.ProductDetailsPage;
 import org.egeiper.pages.SearchResultsPage;
 import org.egeiper.pages.enums.Review;
 import org.egeiper.util.DriverHelper;
+import org.egeiper.util.ParameterStoreUtils;
 import org.egeiper.util.SiteNavigator;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
@@ -15,13 +18,12 @@ import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 
-import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
 public class ProductDetailsPageTest extends DriverHelper {
 
     private static WebDriver driver;
-    private static MainPage mainPage;
+    private static NavigationBar navigationBar;
     private static ProductDetailsPage productDetailsPage;
     private static SearchResultsPage searchResultsPage;
     private static SiteNavigator siteNavigatorUtil;
@@ -29,29 +31,29 @@ public class ProductDetailsPageTest extends DriverHelper {
     @BeforeClass
     public static void beforeClass() throws MalformedURLException {
         driver = new DriverHelper().initializeDriver();
-        mainPage = new MainPage(driver);
+        navigationBar = new NavigationBar(driver);
         productDetailsPage = new ProductDetailsPage(driver);
         searchResultsPage = new SearchResultsPage(driver);
         siteNavigatorUtil = new SiteNavigator(driver);
         CookieFooter cookieFooter = new CookieFooter(driver);
+        LoginPage loginPage = new LoginPage(driver);
+        FacebookLoginOverlay facebookLoginOverlay = new FacebookLoginOverlay(driver);
         siteNavigatorUtil.goToMainPage();
         if(cookieFooter.isCookieFooterVisible()) {
             cookieFooter.acceptCookies();
         }
-        /*
-        if(!mainPage.isUserLoggedIn()) {
-            SiteNavigatorUtil.goToLoginPage();
+        if(!navigationBar.isUserLoggedIn()) {
+            siteNavigatorUtil.goToLoginPage();
+            //loginPage.login("egeiper@hotmail.com", "###"); HepsiBurada doesn't allow to login with automated browsers.
             loginPage.clickLoginWithFacebookButton();
-            facebookLoginOverlay.loginWithFacebook("egeiper", "231296.Ege");
+            facebookLoginOverlay.loginWithFacebook("egeiper", ParameterStoreUtils.get("FACEBOOK_PASSWORD"));
         }
-
-         */
     }
 
     @Test
     public void giveFeedbackOnReviewTest() {
         final int index = 0;
-        mainPage.searchProduct("iphone");
+        navigationBar.searchProduct("iphone");
         searchResultsPage.clickOnRandomProduct();
         productDetailsPage.switchToTab("Değerlendirmeler");
         if(productDetailsPage.isThereAnyReview()) {
@@ -60,19 +62,16 @@ public class ProductDetailsPageTest extends DriverHelper {
             assertTrue(productDetailsPage.isThanksForReviewTextVisible(index));
         }
     }
-/*
+
     @Test
     public void giveFeedBackOnProductTest() {
-        mainPage.searchProduct("iphone");
+        navigationBar.searchProduct("iphone");
         searchResultsPage.clickOnRandomProduct();
         if(!productDetailsPage.isProductLiked()) {
             productDetailsPage.clickLikeButton();
         }
         assertTrue(productDetailsPage.isProductLiked());
     }
-
-
- */
     @AfterMethod
     public void afterTest() {
         siteNavigatorUtil.goToMainPage();

@@ -38,6 +38,14 @@ public class LoginPage extends BasePage {
         }
     }
 
+    public void login(final String username, final String password) {
+        fillUsernameInput(username);
+        clickLoginButton(LoginCredentials.USERNAME);
+        fillPasswordInput(password);
+        clickLoginButton(LoginCredentials.PASSWORD);
+    }
+
+
     private void fillUsernameInput(final String username) {
         waitUntil(ExpectedConditions.visibilityOf(usernameInput));
         usernameInput.sendKeys(username);

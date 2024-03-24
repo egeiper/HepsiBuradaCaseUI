@@ -1,11 +1,12 @@
-package org.egeiper.pages;
+package org.egeiper.components;
 
+import org.egeiper.pages.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class MainPage extends BasePage {
+public class NavigationBar extends BasePage {
 
     @FindBy(css = "div[id*='SearchBox']")
     protected WebElement productSearchBarContainer;
@@ -19,7 +20,10 @@ public class MainPage extends BasePage {
     @FindBy(css = "[data-test-id*='account']")
     protected WebElement accountStateButton;
 
-    public MainPage(final WebDriver driver) {
+    @FindBy(id = "shoppingCart")
+    private WebElement shoppingCartButton;
+
+    public NavigationBar(final WebDriver driver) {
         super(driver);
     }
 
@@ -35,6 +39,11 @@ public class MainPage extends BasePage {
     public boolean isUserLoggedIn() {
         waitUntil(ExpectedConditions.visibilityOf(accountStateButton));
         return !accountStateButton.getText().equals("Giriş Yap");
+    }
+
+    public void goToShoppingCart() {
+        waitUntil(ExpectedConditions.elementToBeClickable(shoppingCartButton));
+        shoppingCartButton.click();
     }
 
 }

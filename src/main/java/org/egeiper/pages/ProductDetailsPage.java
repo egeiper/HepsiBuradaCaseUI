@@ -84,6 +84,7 @@ public class ProductDetailsPage extends BasePage {
     public void clickLikeButton() {
         waitUntil(ExpectedConditions.visibilityOf(likeButton));
         clickElement(likeButton);
+        waitUntil(ExpectedConditions.textToBePresentInElement(likeButton, "Beğendin"));
     }
 
     public boolean isProductLiked() {
