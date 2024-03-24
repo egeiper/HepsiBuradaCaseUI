@@ -53,7 +53,7 @@ publishing {
                 }
                 publications {
                     mavenJava(MavenPublication) {
-                        artifact file("$projectDir/target/HepsiBuradaCase-${version}-jar-with-dependencies.jar")
+                        artifact file("$projectDir/target/HepsiBuradaCase-${version}.jar")
                     }
                 }
             }
