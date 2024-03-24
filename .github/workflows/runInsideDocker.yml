@@ -27,7 +27,7 @@ jobs:
           java-version: 11
 
       - name: Build and Test With Docker
-        run: docker compose --env-file .amd64.env -f docker-compose.withTests.yml up --exit-code-from tests
+        run: docker compose --env-file .amd64.env -f docker-compose.withTests.yml up --exit-code-from dockerTest
 
       - name: Remove Containers
         run: docker compose -f docker-compose.withTests.yml down
