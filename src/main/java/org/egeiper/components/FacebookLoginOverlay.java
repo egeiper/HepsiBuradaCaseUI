@@ -39,7 +39,7 @@ public class FacebookLoginOverlay extends BasePage {
     public void loginWithFacebook(final String email, final String password) {
         fillMailInput(email);
         fillPasswordInput(password);
-        waitFor(1000);
+        waitFor(1000); // to avoid detection of automated login
         clickLoginButton();
     }
 }

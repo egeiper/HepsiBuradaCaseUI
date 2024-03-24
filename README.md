@@ -18,7 +18,11 @@ This is a demo project for case given by HepsiBurada.
 
 
 - To run project in local with Gradle: `./gradlew clean test -Pserver=local`
+
+
 - To run project in local with TestNG: `mvn clean test -Dsurefire.suiteXmlFiles=tests.xml` will run tests parallel with Maven Surefire Plugin.
+
+
 - To run project in local with TestNG XML: Right click on `tests.xml` and click run. 
 
 ### How to run project on GitHub Actions ?

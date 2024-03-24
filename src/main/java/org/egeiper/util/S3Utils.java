@@ -14,9 +14,9 @@ public final class S3Utils {
     private S3Utils() {
     }
 
-    public static String getObject(final String bucketName, final String key, final String profileName) throws IOException {
+    public static String getObject(final String bucketName, final String key, final String profileName, Region region) throws IOException {
         S3Client s3 = S3Client.builder().credentialsProvider(ProfileCredentialsProvider.create(profileName))
-                .region(Region.EU_CENTRAL_1).build();
+                .region(region).build();
         GetObjectRequest getObjectRequest = GetObjectRequest.builder().bucket(bucketName).key(key).build();
         ResponseInputStream<GetObjectResponse> response = s3.getObject(getObjectRequest);
         return new String(response.readAllBytes());

@@ -32,7 +32,7 @@ public class DriverHelper {
     public ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
         final String serverProperty = System.getProperty("SERVER");
-        if ("actions".equals(serverProperty)) { // because hepsiburada doesnt allow headless mode it wont work for the case
+        if ("actions".equals(serverProperty)) { // because hepsiburada doesnt allow headless mode it wont work on GitHub Actions
             // but i'm putting it just for idea.
             options.addArguments("--headless");
             options.addArguments("--disable-dev-shm-usage");

@@ -38,6 +38,7 @@ public class LoginPage extends BasePage {
         }
     }
 
+    // Login with HepsiBurada credentials
     public void login(final String username, final String password) {
         fillUsernameInput(username);
         clickLoginButton(LoginCredentials.USERNAME);

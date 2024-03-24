@@ -15,6 +15,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import software.amazon.awssdk.regions.Region;
 
 import java.io.IOException;
 
@@ -48,7 +49,7 @@ public class ProductDetailsPageTest extends DriverHelper {
             loginPage.clickLoginWithFacebookButton();
             // We will get password from S3 Bucket for security reasons.
             facebookLoginOverlay.loginWithFacebook("egeiper",
-                    S3Utils.getObject("maven.egeiper", "FACEBOOK_PASSWORD", "egeiper"));
+                    S3Utils.getObject("maven.egeiper", "FACEBOOK_PASSWORD", "egeiper", Region.EU_CENTRAL_1));
         }
     }
 
