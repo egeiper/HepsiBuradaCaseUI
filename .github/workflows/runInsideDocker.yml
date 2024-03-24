@@ -1,0 +1,63 @@
+name: Run Inside Docker
+
+on:
+  workflow_dispatch:
+    inputs:
+      project_version:
+        description: "Project version to fetch from S3"
+        required: true
+        default: "1.0.0"
+        type: string
+
+jobs:
+
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup JDK 11
+        uses: actions/setup-java@v4
+        with:
+          distribution: "zulu"
+          java-version: 11
+
+      - name: Build and Test With Docker
+        run: docker compose --env-file .amd64.env -f docker-compose.withTests.yml up
+
+      - name: Remove Containers
+        run: docker compose -f docker-compose.withTests.yml down
+
+
+      - name: Download Artifacts from S3
+        uses: keithweaver/aws-s3-github-action@v1.0.0
+        with:
+          command: cp
+          source: s3://maven.egeiper/org/egeiper/HepsiBuradaCase/${{ github.event.inputs.project_version }}/HepsiBuradaCase-${{ github.event.inputs.project_version }}.jar
+          destination: ./
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: eu-central-1
+
+      - uses: actions/upload-artifact@v4
+        name: Upload Report Artifacts
+        with:
+          name: allure-report
+          path: /${{ github.workspace }}/allure-results/
+
+  upload_allure_report:
+    if: always()
+    needs: build
+    name: Upload Allure Report
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/download-artifact@v4
+        name: Download uploaded artifacts
+        with:
+          name: allure-report
+          path: /${{ github.workspace }}/build/allure-results/
