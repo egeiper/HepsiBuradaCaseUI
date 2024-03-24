@@ -1,15 +1,22 @@
+import com.amazonaws.auth.profile.ProfileCredentialsProvider
+
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
         classpath 'com.github.ksoichiro:gradle-console-reporter:0.6.3'
+        classpath 'com.amazonaws:aws-java-sdk:1.10.58'
     }
 }
 
 plugins {
     id 'java'
     id 'maven-publish'
+}
+
+ext {
+    awsCredentials = new ProfileCredentialsProvider("egeiper").credentials
 }
 
 group = "org.egeiper"
@@ -31,6 +38,8 @@ dependencies {
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
     implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
     implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+    implementation group: 'software.amazon.awssdk', name: 's3', version: '2.24.9'
+    implementation'com.amazonaws:aws-java-sdk:1.10.58'
 
 }
 
@@ -39,8 +48,8 @@ publishing {
             maven {
                 url = project.property("AWS_S3_URL") ?: findProperty('aws_s3_url')
                 credentials(AwsCredentials) {
-                    accessKey = project.property("AWS_ACCESS_KEY_ID") ?: findProperty('aws_access_key_id')
-                    secretKey = project.property("AWS_SECRET_ACCESS_KEY") ?: findProperty('aws_secret_access_key')
+                    accessKey = awsCredentials.AWSAccessKeyId
+                    secretKey = awsCredentials.AWSSecretKey
                 }
                 publications {
                     mavenJava(MavenPublication) {

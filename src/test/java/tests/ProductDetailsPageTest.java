@@ -8,7 +8,7 @@ import org.egeiper.pages.ProductDetailsPage;
 import org.egeiper.pages.SearchResultsPage;
 import org.egeiper.pages.enums.Review;
 import org.egeiper.util.DriverHelper;
-import org.egeiper.util.ParameterStoreUtils;
+import org.egeiper.util.S3Utils;
 import org.egeiper.util.SiteNavigator;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
@@ -16,7 +16,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -29,7 +29,7 @@ public class ProductDetailsPageTest extends DriverHelper {
     private static SiteNavigator siteNavigatorUtil;
 
     @BeforeClass
-    public static void beforeClass() throws MalformedURLException {
+    public static void beforeClass() throws IOException {
         driver = new DriverHelper().initializeDriver();
         navigationBar = new NavigationBar(driver);
         productDetailsPage = new ProductDetailsPage(driver);
@@ -46,7 +46,9 @@ public class ProductDetailsPageTest extends DriverHelper {
             siteNavigatorUtil.goToLoginPage();
             //loginPage.login("egeiper@hotmail.com", "###"); HepsiBurada doesn't allow to login with automated browsers.
             loginPage.clickLoginWithFacebookButton();
-            facebookLoginOverlay.loginWithFacebook("egeiper", ParameterStoreUtils.get("FACEBOOK_PASSWORD"));
+            // We will get password from S3 Bucket for security reasons.
+            facebookLoginOverlay.loginWithFacebook("egeiper",
+                    S3Utils.getObject("maven.egeiper", "FACEBOOK_PASSWORD", "egeiper"));
         }
     }
 
