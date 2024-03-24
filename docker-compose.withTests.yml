@@ -27,6 +27,6 @@ services:
       - chrome
     environment:
       - HUB_HOST=selenium-hub
-      - MODULE=firstTest.xml
+      - MODULE=tests.xml
     volumes:
       - ./allure-results:/usr/share/alpineDirectory/allure-results
