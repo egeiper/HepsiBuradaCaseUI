@@ -16,7 +16,7 @@ public class DriverHelper {
 
     public WebDriver initializeDriver() throws MalformedURLException {
         final String serverProperty = System.getProperty("SERVER");
-        if ("local".equals(serverProperty) || "actions".equals(serverProperty)|| serverProperty == null) {
+        if ("local".equals(serverProperty) || serverProperty == null) {
             setDriver(new ChromeDriver(getChromeOptions()));
         } else {
             setDriver(createRemoteDriver());
